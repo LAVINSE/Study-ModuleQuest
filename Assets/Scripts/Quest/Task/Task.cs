@@ -76,15 +76,13 @@ public class Task : ScriptableObject
     }
 
     public bool IsComplete => State == TaskState.Complete;
-    //public Quest Owner { get; private set; }
+    public Quest Owner { get; private set; }
 
-    /*
     public void Setup(Quest owner)
     {
         Owner = owner;
     }
-    */
-
+    
     public void Start()
     {
         State = TaskState.Running;
