@@ -28,7 +28,7 @@ public class TaskGroup
             task.Setup(owner);
     }
 
-    public void Setup()
+    public void Start()
     {
         State = TaskGroupState.Running;
         foreach (var task in tasks)
