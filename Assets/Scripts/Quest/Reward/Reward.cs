@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Reward : MonoBehaviour
+public abstract class Reward : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Sprite icon;
+    [SerializeField] private string description;
+    [SerializeField] private int quantity;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Sprite Icon => icon;
+    public string Description => description;
+    public int Quantity => quantity;
+
+    public abstract void Give(Quest quest);
 }
