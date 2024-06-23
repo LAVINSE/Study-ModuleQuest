@@ -43,6 +43,10 @@ public class Quest : ScriptableObject
     [SerializeField] private bool useAutoComplete;
     [SerializeField] private bool isCancelable;
 
+    [Header("Condition")]
+    [SerializeField] private Condition[] acceptionConditions;
+    [SerializeField] private Condition[] cancelConditions;
+
     private int currentTaskGroupIndex;
 
     public Category Category => category;
@@ -58,7 +62,8 @@ public class Quest : ScriptableObject
     public bool IsComplatable => State != QuestState.WaitingForCompletion;
     public bool IsComplete => State == QuestState.Complete;
     public bool IsCancel => State == QuestState.Cancel;
-    public bool IsCancelable => isCancelable;
+    public bool IsCancelable => isCancelable && cancelConditions.All(x => x.IsPass(this));
+    public bool IsAcceptable => acceptionConditions.All(x => x.IsPass(this));
 
     public event TaskSuccessChangedHandler onTaskSuccessChanged;
     public event CompletedHandler onCompleted;
