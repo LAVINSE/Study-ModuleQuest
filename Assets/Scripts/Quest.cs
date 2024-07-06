@@ -62,7 +62,7 @@ public class Quest : ScriptableObject
     public bool IsComplatable => State != QuestState.WaitingForCompletion;
     public bool IsComplete => State == QuestState.Complete;
     public bool IsCancel => State == QuestState.Cancel;
-    public bool IsCancelable => isCancelable && cancelConditions.All(x => x.IsPass(this));
+    public virtual bool IsCancelable => isCancelable && cancelConditions.All(x => x.IsPass(this));
     public bool IsAcceptable => acceptionConditions.All(x => x.IsPass(this));
 
     public event TaskSuccessChangedHandler onTaskSuccessChanged;
@@ -137,7 +137,7 @@ public class Quest : ScriptableObject
         onNewTaskGroup = null;
     }
 
-    public void Cancel()
+    public virtual void Cancel()
     {
         CheckIsRunning();
         Debug.Assert(IsCancelable, "This quest can't be canceled");
