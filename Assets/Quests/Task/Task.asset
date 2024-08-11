@@ -17,6 +17,7 @@ MonoBehaviour:
   description: You have to kill the slime
   action: {fileID: 11400000, guid: a10c56e798f099e489a442ab53e2ac46, type: 2}
   targets:
-  - {fileID: 11400000, guid: 7fb1b2b0a6b3aee41afed9ccb911c436, type: 2}
-  initalSuccessValue: {fileID: 0}
+  - {fileID: 11400000, guid: e4768211828746144904af57f8205e54, type: 2}
+  initialSuccessValue: {fileID: 0}
   needSuccessToComplete: 5
+  canReceiveReportsDuringCompletion: 0

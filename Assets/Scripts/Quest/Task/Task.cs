@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum TaskState
@@ -11,31 +10,38 @@ public enum TaskState
     Complete
 }
 
-[CreateAssetMenu(menuName = "Quest/Task/Task", fileName = "Task")]
+[CreateAssetMenu(menuName = "Quest/Task/Task", fileName = "Task_")]
 public class Task : ScriptableObject
 {
     #region Events
     public delegate void StateChangedHandler(Task task, TaskState currentState, TaskState prevState);
     public delegate void SuccessChangedHandler(Task task, int currentSuccess, int prevSuccess);
-    // public System.Action<Task, TaskState, TaskState> onStateChangeHandler; >> 이런식으로 사용 가능
-    #endregion // Events
+    #endregion
 
-    [SerializeField] private Category category;
+    [SerializeField]
+    private Category category;
 
     [Header("Text")]
-    [SerializeField] private string codeName;
-    [SerializeField] private string description;
+    [SerializeField]
+    private string codeName;
+    [SerializeField]
+    private string description;
 
     [Header("Action")]
-    [SerializeField] private TaskAction action;
+    [SerializeField]
+    private TaskAction action;
 
     [Header("Target")]
-    [SerializeField] private TaskTarget[] targets;
+    [SerializeField]
+    private TaskTarget[] targets;
 
     [Header("Setting")]
-    [SerializeField] private InitalSuccessValue initalSuccessValue;
-    [SerializeField] private int needSuccessToComplete;
-    [SerializeField] private bool canReceiveReportsDuringCompletion; // 작업이 완료되었어도 계속 성공횟수를 보고 받을 것인지 확인
+    [SerializeField]
+    private InitialSuccessValue initialSuccessValue;
+    [SerializeField]
+    private int needSuccessToComplete;
+    [SerializeField]
+    private bool canReceiveReportsDuringCompletion;
 
     private TaskState state;
     private int currentSuccess;
@@ -45,25 +51,22 @@ public class Task : ScriptableObject
 
     public int CurrentSuccess
     {
-        get => CurrentSuccess;
+        get => currentSuccess;
         set
         {
             int prevSuccess = currentSuccess;
             currentSuccess = Mathf.Clamp(value, 0, needSuccessToComplete);
-            if(currentSuccess != prevSuccess)
+            if (currentSuccess != prevSuccess)
             {
                 State = currentSuccess == needSuccessToComplete ? TaskState.Complete : TaskState.Running;
-                onSuccessChanged?.Invoke(this, CurrentSuccess, prevSuccess);
+                onSuccessChanged?.Invoke(this, currentSuccess, prevSuccess);
             }
         }
     }
-
     public Category Category => category;
-    public int NeedSuccessToComplete => needSuccessToComplete;
-
     public string CodeName => codeName;
     public string Description => description;
-
+    public int NeedSuccessToComplete => needSuccessToComplete;
     public TaskState State
     {
         get => state;
@@ -74,7 +77,6 @@ public class Task : ScriptableObject
             onStateChanged?.Invoke(this, state, prevState);
         }
     }
-
     public bool IsComplete => State == TaskState.Complete;
     public Quest Owner { get; private set; }
 
@@ -82,12 +84,12 @@ public class Task : ScriptableObject
     {
         Owner = owner;
     }
-    
+
     public void Start()
     {
         State = TaskState.Running;
-        if (initalSuccessValue)
-            CurrentSuccess = initalSuccessValue.GetValue(this);
+        if (initialSuccessValue)
+            CurrentSuccess = initialSuccessValue.GetValue(this);
     }
 
     public void End()
@@ -96,18 +98,19 @@ public class Task : ScriptableObject
         onSuccessChanged = null;
     }
 
-    public void Complete()
-    {
-        CurrentSuccess = needSuccessToComplete;
-    }
-
     public void ReceiveReport(int successCount)
     {
         CurrentSuccess = action.Run(this, CurrentSuccess, successCount);
     }
 
+    public void Complete()
+    {
+        CurrentSuccess = needSuccessToComplete;
+    }
+
     public bool IsTarget(string category, object target)
-        => Category == category && targets.Any(x => x.IsEqual(target))
-        && (!IsComplete || (IsComplete && canReceiveReportsDuringCompletion));
+        => Category == category &&
+        targets.Any(x => x.IsEqual(target)) &&
+        (!IsComplete || (IsComplete && canReceiveReportsDuringCompletion));
 }
 

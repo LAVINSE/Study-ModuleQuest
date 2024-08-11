@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quest/Task/Action/NegativeCount", fileName = "Negative Count")]
+[CreateAssetMenu(menuName = "Quest/Task/Action/NegativeCount", fileName = "NegativeCount")]
 public class NegativeCount : TaskAction
 {
     public override int Run(Task task, int currentSuccess, int successCount)
@@ -10,4 +10,3 @@ public class NegativeCount : TaskAction
         return successCount < 0 ? currentSuccess - successCount : currentSuccess;
     }
 }
-

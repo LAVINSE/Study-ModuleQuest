@@ -7,7 +7,7 @@ using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 public enum QuestState
-{ 
+{
     Inactive,
     Running,
     Complete,
@@ -15,37 +15,48 @@ public enum QuestState
     WaitingForCompletion
 }
 
-[CreateAssetMenu(menuName = "Quest/Quest", fileName = "Quest")]
+[CreateAssetMenu(menuName = "Quest/Quest", fileName = "Quest_")]
 public class Quest : ScriptableObject
 {
     #region Events
     public delegate void TaskSuccessChangedHandler(Quest quest, Task task, int currentSuccess, int prevSuccess);
     public delegate void CompletedHandler(Quest quest);
-    public delegate void CancelHandler(Quest quest);
+    public delegate void CanceledHandler(Quest quest);
     public delegate void NewTaskGroupHandler(Quest quest, TaskGroup currentTaskGroup, TaskGroup prevTaskGroup);
-    #endregion // Events
+    #endregion
 
-    [SerializeField] private Category category;
-    [SerializeField] private Sprite icon;
+    [SerializeField]
+    private Category category;
+    [SerializeField]
+    private Sprite icon;
 
     [Header("Text")]
-    [SerializeField] private string codeName;
-    [SerializeField] private string displayName;
-    [SerializeField, TextArea] private string description;
+    [SerializeField]
+    private string codeName;
+    [SerializeField]
+    private string displayName;
+    [SerializeField, TextArea]
+    private string description;
 
     [Header("Task")]
-    [SerializeField] private TaskGroup[] taskGroups;
+    [SerializeField]
+    private TaskGroup[] taskGroups;
 
     [Header("Reward")]
-    [SerializeField] private Reward[] rewards;
+    [SerializeField]
+    private Reward[] rewards;
 
     [Header("Option")]
-    [SerializeField] private bool useAutoComplete;
-    [SerializeField] private bool isCancelable;
+    [SerializeField]
+    private bool useAutoComplete;
+    [SerializeField]
+    private bool isCancelable;
 
     [Header("Condition")]
-    [SerializeField] private Condition[] acceptionConditions;
-    [SerializeField] private Condition[] cancelConditions;
+    [SerializeField]
+    private Condition[] acceptionConditions;
+    [SerializeField]
+    private Condition[] cancelConditions;
 
     private int currentTaskGroupIndex;
 
@@ -58,8 +69,8 @@ public class Quest : ScriptableObject
     public TaskGroup CurrentTaskGroup => taskGroups[currentTaskGroupIndex];
     public IReadOnlyList<TaskGroup> TaskGroups => taskGroups;
     public IReadOnlyList<Reward> Rewards => rewards;
-    public bool isRegistered => State != QuestState.Inactive;
-    public bool IsComplatable => State != QuestState.WaitingForCompletion;
+    public bool IsRegistered => State != QuestState.Inactive;
+    public bool IsComplatable => State == QuestState.WaitingForCompletion;
     public bool IsComplete => State == QuestState.Complete;
     public bool IsCancel => State == QuestState.Cancel;
     public virtual bool IsCancelable => isCancelable && cancelConditions.All(x => x.IsPass(this));
@@ -67,20 +78,18 @@ public class Quest : ScriptableObject
 
     public event TaskSuccessChangedHandler onTaskSuccessChanged;
     public event CompletedHandler onCompleted;
-    public event CancelHandler onCanceled;
+    public event CanceledHandler onCanceled;
     public event NewTaskGroupHandler onNewTaskGroup;
 
     public void OnRegister()
     {
-        // Assert => 인자로 들어온 값이 false >> 뒤에 문장 출력 ,절대 일어나서는 안되는 조건이 일어났을때 검출하는 코드
-        // 성능에 영향을 안줌 > 방어적 프로그램
-        Debug.Assert(!isRegistered, "This quest has alread been registered");
+        Debug.Assert(!IsRegistered, "This quest has already been registered.");
 
-        foreach(var taskGroup in taskGroups)
+        foreach (var taskGroup in taskGroups)
         {
             taskGroup.Setup(this);
-            foreach(var task in taskGroup.Tasks)
-                task.onSuccessChanged += OnSuccesesChanged;
+            foreach (var task in taskGroup.Tasks)
+                task.onSuccessChanged += OnSuccessChanged;
         }
 
         State = QuestState.Running;
@@ -89,12 +98,12 @@ public class Quest : ScriptableObject
 
     public void ReceiveReport(string category, object target, int successCount)
     {
-        Debug.Assert(!isRegistered, "This quest has alread been registered");
+        Debug.Assert(IsRegistered, "This quest has already been registered.");
         Debug.Assert(!IsCancel, "This quest has been canceled.");
 
         if (IsComplete)
             return;
-        
+
         CurrentTaskGroup.ReceiveReport(category, target, successCount);
 
         if (CurrentTaskGroup.IsAllTaskComplete)
@@ -107,10 +116,10 @@ public class Quest : ScriptableObject
             }
             else
             {
-                var prevTaskGroup = taskGroups[currentTaskGroupIndex++];
-                prevTaskGroup.End();
+                var prevTasKGroup = taskGroups[currentTaskGroupIndex++];
+                prevTasKGroup.End();
                 CurrentTaskGroup.Start();
-                onNewTaskGroup?.Invoke(this, CurrentTaskGroup, prevTaskGroup);
+                onNewTaskGroup?.Invoke(this, CurrentTaskGroup, prevTasKGroup);
             }
         }
         else
@@ -146,7 +155,6 @@ public class Quest : ScriptableObject
         onCanceled?.Invoke(this);
     }
 
-
     public Quest Clone()
     {
         var clone = Instantiate(this);
@@ -155,14 +163,14 @@ public class Quest : ScriptableObject
         return clone;
     }
 
-    private void OnSuccesesChanged(Task task, int currentSuccess, int prevSuccess)
+    private void OnSuccessChanged(Task task, int currentSuccess, int prevSuccess)
         => onTaskSuccessChanged?.Invoke(this, task, currentSuccess, prevSuccess);
 
     [Conditional("UNITY_EDITOR")]
     private void CheckIsRunning()
     {
-        Debug.Assert(!isRegistered, "This quest has alread been registered");
+        Debug.Assert(IsRegistered, "This quest has already been registered");
         Debug.Assert(!IsCancel, "This quest has been canceled.");
-        Debug.Assert(!IsComplete, "This quest has already been completed.");
+        Debug.Assert(!IsComplete, "This quest has already been completed");
     }
 }

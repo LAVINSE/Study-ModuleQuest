@@ -13,12 +13,13 @@ public enum TaskGroupState
 [System.Serializable]
 public class TaskGroup
 {
-    [SerializeField] private Task[] tasks;
+    [SerializeField]
+    private Task[] tasks;
 
     public IReadOnlyList<Task> Tasks => tasks;
     public Quest Owner { get; private set; }
     public bool IsAllTaskComplete => tasks.All(x => x.IsComplete);
-    public bool IsCompleted => State == TaskGroupState.Complete;
+    public bool IsComplete => State == TaskGroupState.Complete;
     public TaskGroupState State { get; private set; }
 
     public TaskGroup(TaskGroup copyTarget)
@@ -43,13 +44,13 @@ public class TaskGroup
     public void End()
     {
         State = TaskGroupState.Complete;
-        foreach(var task in tasks)
+        foreach (var task in tasks)
             task.End();
     }
 
     public void ReceiveReport(string category, object target, int successCount)
     {
-        foreach(var task in tasks)
+        foreach (var task in tasks)
         {
             if (task.IsTarget(category, target))
                 task.ReceiveReport(successCount);
@@ -58,14 +59,14 @@ public class TaskGroup
 
     public void Complete()
     {
-        if (IsCompleted)
+        if (IsComplete)
             return;
 
         State = TaskGroupState.Complete;
 
-        foreach(var task in tasks)
+        foreach (var task in tasks)
         {
-            if(!task.IsComplete)
+            if (!task.IsComplete)
                 task.Complete();
         }
     }
