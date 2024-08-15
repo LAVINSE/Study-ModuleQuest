@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+/** 분류 목적 */
 [CreateAssetMenu(menuName = "Category", fileName = "Category")]
 public class Category : ScriptableObject, IEquatable<Category> // 객체의 동등성을 비교를 위한 방법 >> 박싱 피하기
 {

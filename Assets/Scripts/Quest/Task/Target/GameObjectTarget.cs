@@ -15,6 +15,8 @@ public class GameObjectTarget : TaskTarget
         var targetAsGameObject = target as GameObject;
         if (targetAsGameObject == null)
             return false;
+
+        // 생성된 오브젝트의 원본 이름이 포함되었는지 확인
         return targetAsGameObject.name.Contains(value.name);
     }
 }
