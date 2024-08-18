@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-/** 작업의 현재 상태 열거형 */
+/** 작업의 상태 열거형 */
 public enum TaskState
 {
     Inactive,
@@ -42,13 +42,13 @@ public class Task : ScriptableObject
     [SerializeField]
     private int needSuccessToComplete; // 필요한 성공 횟수
     [SerializeField]
-    private bool canReceiveReportsDuringCompletion; // Task를 완료했어도 계속 성공 횟수를 받을건지 확인하는 변수
+    private bool canReceiveReportsDuringCompletion; // 작업을 완료했어도 계속 성공 횟수를 받을건지 확인하는 변수
 
     private TaskState state;
     private int currentSuccess;
 
-    public event StateChangedHandler onStateChanged;
-    public event SuccessChangedHandler onSuccessChanged;
+    public event StateChangedHandler onStateChanged; // 상태가 변경되었을때 실행할 Event
+    public event SuccessChangedHandler onSuccessChanged; // 현재 성공횟수가 변경되었을때 실행할 Event
 
     public int CurrentSuccess // 현재 성공 횟수
     {
@@ -81,13 +81,13 @@ public class Task : ScriptableObject
     public bool IsComplete => State == TaskState.Complete;
     public Quest Owner { get; private set; }
 
-    /** Task를 가진 Quest가 누군지 확인한다 */
+    /** 작업을 가진 Quest가 누군지 확인한다 */
     public void Setup(Quest owner)
     {
         Owner = owner;
     }
 
-    /** Task가 시작했을때 실행한다 */
+    /** 작업이 시작했을때 실행한다 */
     public void Start()
     {
         // 상태 변경
@@ -98,7 +98,7 @@ public class Task : ScriptableObject
             CurrentSuccess = initialSuccessValue.GetValue(this);
     }
 
-    /** Task가 완전히 끝났을때 실행한다 */
+    /** 작업이 완전히 끝났을때 실행한다 */
     public void End()
     {
         // 이벤트 null
@@ -106,14 +106,14 @@ public class Task : ScriptableObject
         onSuccessChanged = null;
     }
 
-    /** 결과를 받는다 */
+    /** 보고를 받는다 */
     public void ReceiveReport(int successCount)
     {
         // 들어온 값이 계속 더해지는 로직 this를 한 이유는 누가 실행했는지 알기 위해
         CurrentSuccess = action.Run(this, CurrentSuccess, successCount);
     }
 
-    /** Task를 완료한다 */
+    /** 작업을 완료한다 */
     public void Complete()
     {
         // 현재 성공횟수를 필요한 성공횟수로 바꾸기

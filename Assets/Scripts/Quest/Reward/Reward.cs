@@ -5,11 +5,11 @@ using UnityEngine;
 public abstract class Reward : ScriptableObject
 {
     [SerializeField]
-    private Sprite icon;
+    private Sprite icon; // 아이콘
     [SerializeField]
-    private string description;
+    private string description; // 설명
     [SerializeField]
-    private int quantity;
+    private int quantity; // 수량
 
     public Sprite Icon => icon;
     public string Description => description;
