@@ -178,11 +178,12 @@ public class Quest : ScriptableObject
         onCanceled?.Invoke(this); // 취소 event 실행
     }
 
+    /** 퀘스트 복사본을 생성하고 안에 있는 작업들도 복사본으로 만든다 */
     public Quest Clone()
     {
         var clone = Instantiate(this);
         clone.taskGroups = taskGroups.Select(x => new TaskGroup(x)).ToArray();
-
+        
         return clone;
     }
 

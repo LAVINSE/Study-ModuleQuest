@@ -11,10 +11,11 @@ using UnityEditor;
 public class QuestDatabase : ScriptableObject
 {
     [SerializeField]
-    private List<Quest> quests;
+    private List<Quest> quests; // 퀘스트 모음
 
     public IReadOnlyList<Quest> Quests => quests;
 
+    /** 해당 코드네임을 가지는 퀘스트를 가져온다 */
     public Quest FindQuestBy(string codeName) => quests.FirstOrDefault(x => x.CodeName == codeName);
 
 #if UNITY_EDITOR 
