@@ -13,10 +13,8 @@ public class QuestSystemTest : MonoBehaviour
 
     void Start()
     {
-        // 인스턴스
         var questSystem = QuestSystem.Instance;
 
-        // 델리게이트 추가
         questSystem.onQuestRegistered += (quest) =>
         {
             print($"New Quest:{quest.CodeName} Registered");
@@ -29,7 +27,6 @@ public class QuestSystemTest : MonoBehaviour
             print($"Completed Quests Count:{questSystem.CompletedQuests.Count}");
         };
 
-        // 퀘스트 등록
         var newQuest = questSystem.Register(quest);
         newQuest.onTaskSuccessChanged += (quest, task, currentSuccess, prevSuccess) =>
         {
@@ -38,16 +35,9 @@ public class QuestSystemTest : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
+        if (Input.GetKeyDown(KeyCode.Space))
             QuestSystem.Instance.ReceiveReport(category, target, 1);
-        }   
-
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Test");
-        }
     }
 }

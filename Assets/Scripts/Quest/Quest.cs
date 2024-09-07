@@ -52,6 +52,8 @@ public class Quest : ScriptableObject
     private bool useAutoComplete; // 자동완료되는 퀘스트인지 확인하는 변수
     [SerializeField]
     private bool isCancelable; // 취소 할 수 없는 퀘스트인지 확인하는 변수
+    [SerializeField]
+    private bool isSavable;
 
     [Header("Condition")]
     [SerializeField]
@@ -78,6 +80,7 @@ public class Quest : ScriptableObject
     // 취소 할 수 있는 퀘스트 && 퀘스트가 취소될 조건이 전부 통과됐을경우 true
     public virtual bool IsCancelable => isCancelable && cancelConditions.All(x => x.IsPass(this)); 
     public bool IsAcceptable => acceptionConditions.All(x => x.IsPass(this)); // 퀘스트가 시작될 조건이 모두 통과될 경우 true
+    public virtual bool IsSavable => isSavable;
 
     public event TaskSuccessChangedHandler onTaskSuccessChanged; // 작업 성공횟수가 변경되었을때 실행할 Event
     public event CompletedHandler onCompleted; // 퀘스트를 완료했을때 실행할 Event
@@ -185,6 +188,38 @@ public class Quest : ScriptableObject
         clone.taskGroups = taskGroups.Select(x => new TaskGroup(x)).ToArray();
         
         return clone;
+    }
+    
+    /** 저장할 데이터를 보낸다 */
+    public QuestSaveData ToSaveData()
+    {
+        return new QuestSaveData
+        {
+            codeName = codeName,
+            state = State,
+            taskGroupIndex = currentTaskGroupIndex,
+            taskSuccessCounts = CurrentTaskGroup.Tasks.Select(x => x.CurrentSuccess).ToArray()
+        };
+    }
+
+    /** 저장된 데이터를 가져온다 */
+    public void LoadFrom(QuestSaveData saveData)
+    {
+        State = saveData.state;
+        currentTaskGroupIndex = saveData.taskGroupIndex;
+
+        for(int i = 0; i < currentTaskGroupIndex; i++)
+        {
+            var taskGroup = taskGroups[i];
+            taskGroup.Start();
+            taskGroup.Complete();
+        }
+
+        for(int i = 0; i < saveData.taskSuccessCounts.Length; i++)
+        {
+            CurrentTaskGroup.Start();
+            CurrentTaskGroup.Tasks[i].CurrentSuccess = saveData.taskSuccessCounts[i];
+        }
     }
 
     private void OnSuccessChanged(Task task, int currentSuccess, int prevSuccess)

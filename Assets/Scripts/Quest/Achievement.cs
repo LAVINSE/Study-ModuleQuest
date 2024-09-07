@@ -7,6 +7,7 @@ public class Achievement : Quest
 {
     // IsCancelable을 체크했어도 취소가 불가능
     public override bool IsCancelable => false;
+    public override bool IsSavable => true;
 
     public override void Cancel()
     {

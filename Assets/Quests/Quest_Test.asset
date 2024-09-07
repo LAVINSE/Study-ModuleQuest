@@ -23,5 +23,6 @@ MonoBehaviour:
   rewards: []
   useAutoComplete: 1
   isCancelable: 0
+  isSavable: 1
   acceptionConditions: []
   cancelConditions: []
