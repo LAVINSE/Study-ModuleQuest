@@ -168,6 +168,7 @@ public class QuestSystem : MonoBehaviour
             return false;
     }
 
+    /** SaveData를 JSON 형태로 변환시키고 JSONArray에 추가한다 */
     private JArray CreateSaveDatas(IReadOnlyList<Quest> quests)
     {
         var saveDatas = new JArray();
@@ -190,6 +191,7 @@ public class QuestSystem : MonoBehaviour
         }
     }
     
+    /** 불러온 퀘스트를 등록하고 등록한 Quest에 저장된 데이터를 넣어준다 */
     private void LoadActiveQuest(QuestSaveData saveData, Quest quest)
     {
         var newQuest = Register(quest);

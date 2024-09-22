@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7458780784621002416}
   - component: {fileID: 4962079914590526416}
+  - component: {fileID: 359264582997082757}
   m_Layer: 5
   m_Name: Quest Tracker
   m_TagString: Untagged
@@ -31,7 +32,6 @@ RectTransform:
   m_Children:
   - {fileID: 2994961542531895231}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -64,6 +64,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &359264582997082757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6512913422224335911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa5799c4db5a9e4eb0d49a910bf8932, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questTitleText: {fileID: 3842680392208543818}
+  taskDescriptorPrefab: {fileID: 5437105161796958141, guid: 4508a58558c732646bca9eec8d65848f,
+    type: 3}
 --- !u!1 &7910898280022624133
 GameObject:
   m_ObjectHideFlags: 0
@@ -95,7 +110,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7458780784621002416}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
