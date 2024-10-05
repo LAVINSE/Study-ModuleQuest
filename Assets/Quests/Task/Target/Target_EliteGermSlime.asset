@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d42a440c043635458d752cdc69c16e8, type: 3}
-  m_Name: Quest Database
+  m_Script: {fileID: 11500000, guid: 2150bb8f9b561924d891cf4b35db8332, type: 3}
+  m_Name: Target_EliteGermSlime
   m_EditorClassIdentifier: 
-  quests:
-  - {fileID: 11400000, guid: 9df2cdda34ef2154eb02451bfd9d9d0f, type: 2}
+  value: {fileID: 4391170313294968223, guid: d8b2804042909434bb1e71fed5d9d62a, type: 3}

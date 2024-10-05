@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 /** 분류 목적 */
-[CreateAssetMenu(menuName = "Category", fileName = "Category")]
+[CreateAssetMenu(menuName = "Category", fileName = "Category_")]
 public class Category : ScriptableObject, IEquatable<Category> // 객체의 동등성을 비교를 위한 방법 >> 박싱 피하기
 {
     [SerializeField] private string codeName;
