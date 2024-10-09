@@ -132,4 +132,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questTrackerPrefab: {fileID: 359264582997082757, guid: f8c10ee090874944aa565620dbc17e3a,
     type: 3}
-  categoryColors: []
+  categoryColors:
+  - category: {fileID: 11400000, guid: 35a01fed1f58b5443ba229102802b6da, type: 2}
+    color: {r: 1, g: 0.9622972, b: 0, a: 1}

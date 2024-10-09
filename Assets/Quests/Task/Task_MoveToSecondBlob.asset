@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdf183ad7c42d7847992cfb390f42941, type: 3}
+  m_Name: Task_MoveToSecondBlob
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: 47e01d814736111438d2b66a8385df22, type: 2}
+  codeName: MOVE_TO_Second_BLOB
+  description: You have to move to second door
+  action: {fileID: 11400000, guid: e092c643fc6518443bdab1e1e046d68d, type: 2}
+  targets:
+  - {fileID: 11400000, guid: c9c4fd11f2296b043b6e46e24caf00fd, type: 2}
+  initialSuccessValue: {fileID: 0}
+  needSuccessToComplete: 1
+  canReceiveReportsDuringCompletion: 0

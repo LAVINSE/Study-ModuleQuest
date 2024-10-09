@@ -1640,6 +1640,7 @@ GameObject:
   - component: {fileID: 376007238}
   - component: {fileID: 376007240}
   - component: {fileID: 376007239}
+  - component: {fileID: 376007241}
   m_Layer: 0
   m_Name: End
   m_TagString: Untagged
@@ -1674,6 +1675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb19886778527ae4bb609e883245f764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  questReporter: {fileID: 376007241}
 --- !u!65 &376007240
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1695,6 +1697,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5, y: 5, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &376007241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376007237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59593f888cc4474fa916f177fe1f08f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: 47e01d814736111438d2b66a8385df22, type: 2}
+  target: {fileID: 11400000, guid: 243e9b2f1cfa2794a915fac747c5f0a9, type: 2}
+  successCount: 1
+  colliderTags: []
 --- !u!4 &378440878 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2466333792631462272, guid: 2947946e8fce6a04e90a006983e11ac0,
@@ -3054,7 +3072,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1562787359488022855, guid: d26356071d092484f9b68a18937abd19,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 903335936}
   m_SourcePrefab: {fileID: 100100000, guid: d26356071d092484f9b68a18937abd19, type: 3}
 --- !u!1001 &755352359
 PrefabInstance:
@@ -3294,6 +3316,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Character
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782824343737523965, guid: 6ca000ead671ebe449deb210e0a19be8,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3813,6 +3840,29 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1457023252}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &903335931 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1562787359488022855, guid: d26356071d092484f9b68a18937abd19,
+    type: 3}
+  m_PrefabInstance: {fileID: 751785470}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &903335936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903335931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59593f888cc4474fa916f177fe1f08f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: 47e01d814736111438d2b66a8385df22, type: 2}
+  target: {fileID: 11400000, guid: e3542230784215d42aee85e4082df8bb, type: 2}
+  successCount: 1
+  colliderTags:
+  - Player
 --- !u!1001 &916814986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3884,7 +3934,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1562787359488022855, guid: d26356071d092484f9b68a18937abd19,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1448230144}
   m_SourcePrefab: {fileID: 100100000, guid: d26356071d092484f9b68a18937abd19, type: 3}
 --- !u!4 &920152547 stripped
 Transform:
@@ -5264,6 +5318,23 @@ PrefabInstance:
       propertyPath: keyType
       value: LastBlob
       objectReference: {fileID: 0}
+    - target: {fileID: 8832053608472463118, guid: b5efbb971dfd08c458d6074096aacb15,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 11400000, guid: 79b0d32169e5a9f43a73c46ba45995bd,
+        type: 2}
+    - target: {fileID: 8832053608472463118, guid: b5efbb971dfd08c458d6074096aacb15,
+        type: 3}
+      propertyPath: category
+      value: 
+      objectReference: {fileID: 11400000, guid: 45d422e91df821e418faddcb7c766be2,
+        type: 2}
+    - target: {fileID: 8832053608472463118, guid: b5efbb971dfd08c458d6074096aacb15,
+        type: 3}
+      propertyPath: successCount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6407,6 +6478,23 @@ PrefabInstance:
       propertyPath: keyType
       value: FirstBlob
       objectReference: {fileID: 0}
+    - target: {fileID: 8832053608472463118, guid: b5efbb971dfd08c458d6074096aacb15,
+        type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 11400000, guid: e8af99174d7d27b419374d225361d723,
+        type: 2}
+    - target: {fileID: 8832053608472463118, guid: b5efbb971dfd08c458d6074096aacb15,
+        type: 3}
+      propertyPath: category
+      value: 
+      objectReference: {fileID: 11400000, guid: 45d422e91df821e418faddcb7c766be2,
+        type: 2}
+    - target: {fileID: 8832053608472463118, guid: b5efbb971dfd08c458d6074096aacb15,
+        type: 3}
+      propertyPath: successCount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6617,6 +6705,29 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1446250066}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1448230139 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1562787359488022855, guid: d26356071d092484f9b68a18937abd19,
+    type: 3}
+  m_PrefabInstance: {fileID: 916814986}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1448230144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448230139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59593f888cc4474fa916f177fe1f08f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  category: {fileID: 11400000, guid: 47e01d814736111438d2b66a8385df22, type: 2}
+  target: {fileID: 11400000, guid: c9c4fd11f2296b043b6e46e24caf00fd, type: 2}
+  successCount: 1
+  colliderTags:
+  - Player
 --- !u!1001 &1457023252
 PrefabInstance:
   m_ObjectHideFlags: 0

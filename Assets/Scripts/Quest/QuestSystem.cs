@@ -66,11 +66,14 @@ public class QuestSystem : MonoBehaviour
         questDatatabase = Resources.Load<QuestDatabase>("Quest Database");
         achievementDatabase = Resources.Load<QuestDatabase>("Achievement Database");
 
-        if (!Load())
-        {
-            foreach (var achievement in achievementDatabase.Quests)
-                Register(achievement);
-        }
+        //foreach (var achievement in achievementDatabase.Quests)
+        //    Register(achievement);
+
+        //if (!Load())
+        //{
+        //    foreach (var achievement in achievementDatabase.Quests)
+        //        Register(achievement);
+        //}
     }
 
     private void OnApplicationQuit()
